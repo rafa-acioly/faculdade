@@ -25,4 +25,12 @@ Begin
    	{$I+}
    	
    	writeln(ioresult); // Exibe o codigo do erro ou 0 se não houve erro
+   	
+   	if ioresult <> 0 then
+   		Begin
+   			writeln('Arquivo não encontrado! criando novo...');
+   			rewrite(a);
+   		End;
+   		
+   		writeln('Arquivo aberto com sucesso!');s
 End.
