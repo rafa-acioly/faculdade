@@ -76,7 +76,9 @@ var res: boolean;
 Begin
 	res:= false;
 	reset(arq);
+	
 	write('Digite a palavra que deseja buscar: '); readln(palavra);
+	
 	while ( not eof(arq) ) do
    Begin
   	readln(arq, s);
