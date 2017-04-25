@@ -33,7 +33,7 @@ Begin
 End;
 
 
-Procedure contar(arq: text) ;
+Procedure contar(var arq: text) ;
 var
 	cont: integer;
 	s: string;
@@ -70,18 +70,18 @@ Begin
   readkey;
 End;
 
-Procedure procura(arq: text) ;
+Procedure procura(var arq: text) ;
 var s, palavra: string;
 var res: boolean;
 Begin
 	res:= false;
 	reset(arq);
 	
-	write('Digite a palavra que deseja buscar: '); readln(palavra);
+	write('Digite a palavra que deseja buscar: '); readln(palavra); // palavra do usuario
 	
 	while ( not eof(arq) ) do
    Begin
-  	readln(arq, s);
+  	readln(arq, s); // a palavra do arquivo
     if ( s = palavra ) then begin
       res:= true;
     end;
@@ -98,6 +98,36 @@ Begin
    close(arq);
    writeln('Pressione qualquer tecla para voltar ao MENU');
    readkey;
+End;
+
+Procedure copiar(var arq: text) ;
+var novoarquivo: text;
+var cp: string;
+var cont: integer;
+Begin
+	{$I-}
+	reset(arq);
+	{$I+}
+	
+	cont:= 1;
+	
+	if ( ioresult = 0 ) then begin
+		assign(novoarquivo, 'copia.txt');
+		criar(novoarquivo);
+		append(novoarquivo);
+		
+		while ( not eof(arq) ) do begin
+    	readln(arq, cp);
+    	writeln(novoarquivo, cont, ' - ', cp);
+    	cont:= cont + 1;
+	  end;
+ 	end;
+	
+	writeln('Copia do arquivo gerada com sucesso!');
+	readkey; 	
+ 	close(arq);
+ 	close(novoarquivo);
+		
 End;
 
 var
@@ -120,7 +150,8 @@ Begin
 		writeln('3 - Exibir todas as palavras');
 		writeln('4 - Procurar palavra');
 		writeln('5 - Contar palavras cadastradas');
-		writeln('6 - Sair');
+		writeln('6 - Realizar backup');
+		writeln('7 - Sair');
 		write('Digite sua opção: '); readln(op);
 		case ( op ) of 
     1:  criar(ag);
@@ -128,7 +159,8 @@ Begin
     3:  exibe(ag);
     4:	procura(ag);
     5:	contar(ag);
-    6: resposta:= true;
+    6:	copiar(ag);
+    7: resposta:= true;
   end;
  until ( resposta );
   
