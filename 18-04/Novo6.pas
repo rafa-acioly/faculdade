@@ -1,12 +1,24 @@
 Program Pzim ;
 
-Procedure criar(var arq: text) ;
+Function check(var arq: text) : boolean ;
 Begin
-	{$I-}
+	{$I+}
 	reset(arq);
 	{$I+}
 	
-	if ( ioresult = 0 ) then begin
+	if ( ioresult <> 0 ) then begin
+   check:= true;
+ end
+	else
+	 begin
+   check:= false;
+ end;
+End;
+
+Procedure criar(var arq: text) ;
+Begin
+	
+	if ( not check(arq) ) then begin
 	  rewrite( arq );
  end else begin
     writeln('O arquivo ja existe!!');
@@ -39,12 +51,13 @@ var
 	s: string;
 Begin
 	cont:= 0;
-	{$I-}
-	reset(arq);
-	{$I+}
 	
-	if ( ioresult = 0 ) then begin
-		while ( not eof(arq) ) do begin
+	if ( not check(arq) ) then begin
+   writeln('Primeiro crie um arquivo, antes de usar esta opção');
+ end 
+ else 
+ 	begin
+  	while ( not eof(arq) ) do begin
 			readln(arq, s);
    		cont:= cont + 1;
 	 end;
@@ -59,8 +72,14 @@ End;
 Procedure exibe(arq: text) ;
 var s: string;
 Begin
-	reset(arq);
-  while (not eof(arq)) do
+	
+ if ( not check(arq) ) then begin
+   writeln('Crie um arquivo primeiro antes de usar esta opção!');
+   readkey;
+ end 
+ else 
+ 	begin
+   while (not eof(arq)) do
   	Begin
   	  readln(arq, s);
   	  writeln(s);
@@ -68,6 +87,7 @@ Begin
   close( arq );
   writeln('Pressione qualquer tecla para voltar ao MENU');
   readkey;
+ end;
 End;
 
 Procedure procura(var arq: text) ;
@@ -75,26 +95,28 @@ var s, palavra: string;
 var res: boolean;
 Begin
 	res:= false;
-	reset(arq);
 	
 	write('Digite a palavra que deseja buscar: '); readln(palavra); // palavra do usuario
 	
-	while ( not eof(arq) ) do
+	if ( not check(arq) ) then begin
+  	writeln('Antes de usar esta opção, crie um novo arquivo!'); 
+ 	end 
+ else 
+ 	begin
+   while ( not eof(arq) ) do
    Begin
   	readln(arq, s); // a palavra do arquivo
     if ( s = palavra ) then begin
       res:= true;
     end;
    End;
-   
-   
    if ( res ) then begin
      writeln('--- Palavra encontrada: ', s);
    end   else begin
      writeln('--- Palavra não encontrada!!');
    end;
-  		
-   
+ end;
+
    close(arq);
    writeln('Pressione qualquer tecla para voltar ao MENU');
    readkey;
@@ -105,30 +127,37 @@ var novoarquivo: text;
 var cp: string;
 var cont: integer;
 Begin
-	{$I-}
-	reset(arq);
-	{$I+}
-	
 	cont:= 1;
 	
-	if ( ioresult = 0 ) then begin
+	if ( not check(arq) ) then begin
+   writeln('Antes de usar esta opção, criei um arquivo!');
+ end 
+ else 
+ 	begin
+   // CRIO A COPIA DO ARQUIVO
 		assign(novoarquivo, 'copia.txt');
 		criar(novoarquivo);
 		append(novoarquivo);
 		
 		while ( not eof(arq) ) do begin
+		  // LEIO A LINHA DO ARQUIVO ORIGINAL
     	readln(arq, cp);
+    	
+    	// ESCREVO NO NOVO ARQUIVO
     	writeln(novoarquivo, cont, ' - ', cp);
     	cont:= cont + 1;
 	  end;
- 	end;
+	  writeln('Copia do arquivo gerada com sucesso!');
+		readkey; 	
+ 		close(arq);
+ 		close(novoarquivo);
+ end;
 	
-	writeln('Copia do arquivo gerada com sucesso!');
-	readkey; 	
- 	close(arq);
- 	close(novoarquivo);
-		
+		writeln('Pressione qualquer tecla para voltar ao MENU');
+   readkey;	
 End;
+
+
 
 var
 	ag: text;
