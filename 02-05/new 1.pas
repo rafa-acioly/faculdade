@@ -63,6 +63,7 @@ Begin
 			write('Digite o telefone: ');
 			readln(ag.tel);
 			write(a, ag);
+			seek(a, Filesize(a));
 		end
 	end;
 	close(a);
