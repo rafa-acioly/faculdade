@@ -17,20 +17,20 @@ Begin
 	{$I+}
 	
 	if ( ioresult <> 0 ) then
-   fileExist:= True;
+   fileExist:= True
  else
-   fileExist: False;
+   fileExist:= False;
    
 End;
 Function valid(funcio: funcionario) : boolean ;
 Begin
   if ( funcio.status <> '*' ) then 
 		begin
-    isValid:= True;
+    valid:= True;
   	end  
 	else 
 		begin
-    	isValid:= False;
+    	valid:= False;
   	end;
 End;
 
@@ -64,7 +64,7 @@ Begin
 	if ( fileExist(arq) ) then begin
    while ( not eof(arq) ) do begin
      read(arq, funcio);
-     if ( valid(funcio) and funcio.salario >= 800*20 ) then begin
+     if ( (valid(funcio)) and (funcio.salario >= 800*20) ) then begin
        writeln('Nome do funcionario: ', funcio.nome);
 	     writeln('Cargo: ', funcio.cargo);
   	   writeln('Salario: ', funcio.salario);
@@ -104,7 +104,7 @@ Begin
 							writeln('Deseja realmente apagar este funcionario? S/N');
 							readln(confirmacao);
 							
-							while ( confirmacao <> 'S' and confirmacao <> 'N' ) do 
+							while ( (confirmacao <> 'S') and (confirmacao <> 'N') ) do 
 							begin
 			         writeln('Digite uma opção válida!');
 			         writeln('Deseja realmente apagar este funcionario? S/N');
