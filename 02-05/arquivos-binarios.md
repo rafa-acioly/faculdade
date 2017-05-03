@@ -1,12 +1,12 @@
-### Arquivos bin·rios
+### Arquivos bin√°rios
 
-Tipo de arquivo que permite armazenar uma estrutura de dados e recuper·-lo na mesma forma 
+Tipo de arquivo que permite armazenar uma estrutura de dados e recuper√°-lo na mesma forma 
 
 e tipos de dados que foi gravado.
 Permite o acesso direto aos registros.
 
 
-| CÛdigo  |    Produto   | Valor |
+| C√≥digo  |    Produto   | Valor |
 |----------|:-------------:|------:|
 | 001       |  caneta        | 2.58  |
 | 002       |  lapis           | 0.90  |
@@ -17,75 +17,75 @@ Permite o acesso direto aos registros.
 
 - Declarar uma variavel do tipo arquivo
 
-```
+```pas
 var
   arq: file of <type>; // real, integer, string e etc
 ```
 
 - Associar a variavel do tipo arquivo ao nome do arquivo no disco.
 
-```
-assign(arq, <nome_do_arquivo>.dat); // extens„o .dat
+```pas
+assign(arq, <nome_do_arquivo>.dat); // extens√£o .dat
 ```
 
 - Abrir o arquivo
 
-```
+```pas
 rewrite(arq);
 reset(arq);
-// append() n„o È usado em arquivos bin·rios
+// append() n√£o √© usado em arquivos bin√°rios
 ```
 
 - Gravas/Armazenar dados no arquivo
 
-```
+```pas
 write(arq, <variavel_ou_string>);
-// writeln() n„o È usado em arquivos bin·rios
+// writeln() n√£o √© usado em arquivos bin√°rios
 ```
 
 - Ler/Recuperar dados do arquivo
 
-```
+```pas
 read(arq, <variavel_que_armazena_o_retorno>);
-// readln() n„o È usado em arquivos bin·rios
+// readln() n√£o √© usado em arquivos bin√°rios
 ```
 
 - Fechar o arquivo
 
-```
+```pas
 close(arq);
 ```
 
 
-### FunÁıes especificas para uso em arquivos bin·rios
+### Fun√ß√µes especificas para uso em arquivos bin√°rios
 
-- Recupera a posiÁ„o atual do ponteiro de leitura/gravaÁ„o
+- Recupera a posi√ß√£o atual do ponteiro de leitura/grava√ß√£o
 
-```
+```pas
 x:= Filepos(arq); // retorna um numero inteiro
 ```
 
 - Retorna a quantidade de registros do arquivo
 
-```
+```pas
 x:= Filesize(arq); // retorna um numero inteiro
 ```
 
-- Posiciona o ponteiro de leitura/gravaÁ„o em uma linha especÌfica
+- Posiciona o ponteiro de leitura/grava√ß√£o em uma linha espec√≠fica
 
-```
+```pas
 seek(arq, <posicao>);
 // Exemplo: seek(arq, 3);
 ```
 
-- Posicionar o ponteiro de leitura/gravaÁ„o no final do arquivo
+- Posicionar o ponteiro de leitura/grava√ß√£o no final do arquivo
 
-```
+```pas
 seek(arq, Filesize(arq));
 ```
 
-- Voltar o ponteiro de leitura/gravaÁ„o para o registro anterior
+- Voltar o ponteiro de leitura/grava√ß√£o para o registro anterior
 
-```
+```pas
 seek(arq, Filepos(arq) - 1);
 ```
