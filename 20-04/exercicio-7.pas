@@ -95,9 +95,9 @@ Begin
 
 valida(n, 20);
 entrada(matriz, n);
-somaCol1(matriz, n);
-produtoLin1(matriz, n);
-somaDiagPrinc(matriz, n);
-somaDiagSec(matriz, n);
+writeln('Soma coluna: ', somaCol1(matriz, n));
+writeln('Soma lin: ', produtoLin1(matriz, n));
+writeln('Soma diagonal principal: ', somaDiagPrinc(matriz, n));
+writeln('soma diagonal secundaria: ', somaDiagSec(matriz, n));
   
 End.
