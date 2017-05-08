@@ -11,6 +11,7 @@ Begin
 End;
 
 Procedure entrada(var m:mat; nl, nc:integer) ;
+var i, j: integer;
 Begin
  for i := 1 to nl do
  begin

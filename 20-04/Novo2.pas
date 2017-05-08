@@ -1,10 +1,11 @@
 Program Pzim ;
 
-var
-	alunos: array[1..8] of string;
-	notas: array[1..8,1..5] of real;
+type
+	alunos = array[1..8] of string;
+	notas = array[1..8,1..5] of real;
      
 Procedure lerAlunos(var v: alunos) ;
+var i: integer;
 Begin
   for i := 1 to 8 do
   begin
@@ -12,7 +13,21 @@ Begin
   end;
 End;
 
-Procedure medaluno(nt: vnota; no: vnome) ;
+Procedure lerNotas(nt: notas) ;
+var i, j: integer;
+Begin
+	for i := 1 to 8 do
+ begin
+	for j := 1 to 4 do
+ begin
+	write('Digite a nota do aluno: '); readln(nt[i,j]);
+ end;
+ end;
+End;
+
+Procedure medaluno(nt: notas; no: alunos) ;
+var i, j: integer;
+var soma: real;
 Begin
   for i := 1 to 8 do
   begin
@@ -30,15 +45,25 @@ End;
 
 Function medgeral(var n: notas):real ;
 var soma: real;
+var i: integer;
 Begin
  soma:= 0;
  for i := 1 to 8 do
  begin
    soma:= soma + n[i,5];
  end;
- medgeral:= soma;
+ medgeral:= soma/8;
 End;
 
+var 
+	aluno: alunos;
+	nota: notas;
+
 Begin
+
+lerAlunos(aluno);
+lerNotas(nota);
+medaluno(nota, aluno);
+medgeral(nota);
   
 End.
