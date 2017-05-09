@@ -17,7 +17,7 @@ Begin
  begin
 	for j := 1 to n do
  begin
- 	writeln('Digite a nota: ');
+ 	writeln('Digite um numero: ');
 	readln(m[i,j]);
  end;
  end;
@@ -99,5 +99,6 @@ writeln('Soma coluna: ', somaCol1(matriz, n));
 writeln('Soma lin: ', produtoLin1(matriz, n));
 writeln('Soma diagonal principal: ', somaDiagPrinc(matriz, n));
 writeln('soma diagonal secundaria: ', somaDiagSec(matriz, n));
+writeln('soma total: ', somaTot(matriz, n));
   
 End.

@@ -25,9 +25,9 @@ Begin
  end;
 End;
 
-Procedure medaluno(nt: notas; no: alunos) ;
+Procedure medaluno(var nt: notas; no: alunos) ;
 var i, j: integer;
-var soma: real;
+var soma: integer;
 Begin
   for i := 1 to 8 do
   begin
@@ -39,7 +39,7 @@ Begin
     
     nt[i,5]:= soma / 4;
     
-    writeln('Aluno: ', no[i], ' Nota: ', nt[i,5]);
+    writeln('Aluno: ', no[i,1], ' Nota: ', nt[i,5]);
   end;
 End;
 
@@ -64,6 +64,6 @@ Begin
 lerAlunos(aluno);
 lerNotas(nota);
 medaluno(nota, aluno);
-medgeral(nota);
+write('Media geral: ', medgeral(nota));
   
 End.
