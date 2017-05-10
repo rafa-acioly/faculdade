@@ -160,6 +160,7 @@ Begin
     writeln('Pressione qualquer tecla para continuar');
     readkey;
   end;
+  close(arq);
   writeln('Pressione qualquer tecla para continuar');
   readkey;
 End;
@@ -173,11 +174,12 @@ Begin
   if ( fileExist(arq) ) then begin
   	write('Digite o numero funcionario que deseja atualizar: ');
   	readln(escolha);
+  	reset(arq);
     while ( not eof(arq) ) do begin
       read(arq, funcio);
       if ( escolha = funcio.nome ) then begin
       	find:= True;
-        writeln('Funcionario encontrado');
+        writeln('Funcionario encontrado, digite os novos dados:');
         write('Digite o novo nome: '); readln(funcio.nome);
         write('Digite o novo salario: '); readln(funcio.salario);
         write('Digite o novo cargo: '); readln(funcio.cargo);
@@ -201,6 +203,7 @@ Begin
     readkey;  
   end;
   
+  close(arq);
   writeln('Pressione qualquer tecla para continuar');
   readkey;
 End;
