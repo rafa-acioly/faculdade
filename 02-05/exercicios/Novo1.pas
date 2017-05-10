@@ -79,7 +79,7 @@ Begin
   close(arq);
 End;
 
-Procedure ler(arq: arquivo);
+Procedure ler(var arq: arquivo);
 var funcio: funcionario;
 Begin
   if ( fileExist(arq) ) then 
@@ -118,7 +118,7 @@ Begin
   begin
     writeln('Digite o nome do funcionario que deseja apagar: ');
     readln(escolha); // Armazena a escolha do usuario
-    
+    reset(arq);
     while ( not eof(arq) ) do
     begin
       read(arq, funcio);
@@ -142,18 +142,16 @@ Begin
         
         if ( confirmacao = 'S' ) then
         begin
-          funcio.status:= '*'
+          funcio.status:= '*';
+          writeln('Funcionario excluido com sucesso!');
         end;
         
+        seek(arq, Filesize(arq)-1);
         write(arq, funcio);
-        seek(arq, Filesize(arq));
       end
       else
       begin
-      	
       end;
-      
-      writeln('Pressiona qualquer tecla para voltar ao menu');
     end;
   end
   else
@@ -162,6 +160,8 @@ Begin
     writeln('Pressione qualquer tecla para continuar');
     readkey;
   end;
+  writeln('Pressione qualquer tecla para continuar');
+  readkey;
 End;
 
 Procedure atualizarCadastro(var arq: arquivo) ;
