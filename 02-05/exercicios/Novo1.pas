@@ -64,7 +64,7 @@ Begin
     write('Digite o cargo do funcionario: ');
     readln(func.cargo);
     write('Digite o salario do funcionario: ');
-    readln(func.salario);
+    readln(func.salario:7:2);
     write(arq, func);
     close(arq);
     writeln('Dados salvos com sucesso...');
@@ -90,9 +90,11 @@ Begin
       read(arq, funcio);
       
       if ( ( valid(funcio) ) and (funcio.salario >= 950*20) ) then begin
+      	writeln('-----------------------------------');
         writeln('Nome do funcionario: ', funcio.nome);
         writeln('Cargo: ', funcio.cargo);
-        writeln('Salario: ', funcio.salario);
+        writeln('Salario: ', funcio.salario:7:2);
+        writeln('-----------------------------------');
       end;
       
     end;
@@ -127,7 +129,7 @@ Begin
         writeln('Funcionario encontrado: ');
         writeln('Nome: ', funcio.nome);
         writeln('Cargo: ', funcio.cargo);
-        writeln('Salario: ', funcio.salario);
+        writeln('Salario: ', funcio.salario:7:2);
         writeln('--------------------------');
         
         writeln('Deseja realmente apagar este funcionario? S/N');
@@ -146,11 +148,10 @@ Begin
           writeln('Funcionario excluido com sucesso!');
         end;
         
-        seek(arq, Filesize(arq)-1);
+        seek(arq, Filepos(arq)-1);
         write(arq, funcio);
-      end
-      else
-      begin
+        
+        seek(arq, Filesize(arq));
       end;
     end;
   end
@@ -208,6 +209,70 @@ Begin
   readkey;
 End;
 
+Procedure lerTodos(var arq: arquivo) ;
+var funcio: funcionario;
+Begin
+	if ( fileExist(arq) ) then 
+	begin
+  	reset(arq);
+    while ( not eof(arq) ) do 
+		begin
+      read(arq, funcio);
+      writeln('-----------------------------------');
+      writeln('Nome do funcionario: ', funcio.nome);
+      writeln('Cargo: ', funcio.cargo);
+      writeln('Salario: ', funcio.salario:7:2);
+      writeln('-----------------------------------');      
+    end;
+  end
+  else
+  begin
+    writeln('Arquivo não existe!');
+    readkey;
+  end;
+  close(arq);
+  writeln('Pressione qualquer tecla para voltar ao menu');
+  readkey;  
+End;
+
+Procedure find(var arq: arquivo) ;
+var nome: string;
+var finded: boolean;
+var funcio: funcionario;
+Begin
+	finded:= false;
+	write('Digite o nome do funcionario que deseja procurar: ');
+	readln(nome);
+	if ( fileExist(arq) ) then 
+	begin
+  	reset(arq);
+    while ( not eof(arq) ) do 
+		begin
+      read(arq, funcio);
+      if ( funcio.nome = nome ) then 
+			begin
+				finded:= true;
+        writeln('-----------------------------------');
+	      writeln('Nome do funcionario: ', funcio.nome);
+  	    writeln('Cargo: ', funcio.cargo);
+    	  writeln('Salario: ', funcio.salario:7:2);
+      	writeln('-----------------------------------');
+      end;
+    end;
+  end
+  else
+  begin
+    writeln('Arquivo não existe!');
+    readkey;
+  end;
+  close(arq);
+  if ( not finded ) then begin
+    write('Funcionario com o nome, ', nome, ' não encontrado');
+  end;
+  writeln('Pressione qualquer tecla para voltar ao menu');
+  readkey;
+End;
+
 var arq: arquivo;
 var active: boolean;
 var op: integer;
@@ -223,18 +288,22 @@ repeat
 		writeln;
 		writeln('1 - Criar arquivo');
 		writeln('2 - Cadastrar novo funcionario');
-		writeln('3 - Listar funcionarios');
-		writeln('4 - Excluir funcionario');
-		writeln('5 - Atualizar dados do funcionario');
-		writeln('6 - Sair');
+		writeln('3 - Listar funcionarios com maiores salarios');
+		writeln('4 - Listar todos os funcionarios');
+		writeln('5 - Excluir funcionario');
+		writeln('6 - Atualizar dados do funcionario');
+		writeln('7 - Encontrar funcionario por nome');
+		writeln('8 - Sair');
 		write('Digite sua opção: '); readln(op);
 	case ( op ) of 
     1:  criar(arq);
     2:  cadastra(arq);
     3:  ler(arq);
-    4:	apagar(arq);
-    5:	atualizarCadastro(arq);
-    6: 	active:= False;
+    4:	lerTodos(arq);
+    5:	apagar(arq);
+    6:	atualizarCadastro(arq);
+    7:	find(arq);
+    8: 	active:= False;
   end;
  until ( not active );
   
