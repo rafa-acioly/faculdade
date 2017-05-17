@@ -218,11 +218,13 @@ Begin
     while ( not eof(arq) ) do 
 		begin
       read(arq, funcio);
-      writeln('-----------------------------------');
-      writeln('Nome do funcionario: ', funcio.nome);
-      writeln('Cargo: ', funcio.cargo);
-      writeln('Salario: ', funcio.salario:7:2);
-      writeln('-----------------------------------');      
+      if ( valid(funcio) ) then begin
+        writeln('-----------------------------------');
+	      writeln('Nome do funcionario: ', funcio.nome);
+  	    writeln('Cargo: ', funcio.cargo);
+    	  writeln('Salario: ', funcio.salario:7:2);
+      	writeln('-----------------------------------');
+      end;      
     end;
   end
   else
